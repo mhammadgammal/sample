@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample/bloc/theme_bloc.dart';
+import 'package:sample/bloc/theme_stats.dart';
 import 'package:sample/core/cache/cache_helper.dart';
 import 'package:sample/home.dart';
 
@@ -17,8 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit()..getTheme(isDark),
-      child: BlocConsumer<ThemeCubit, bool>(
+      create: (context) => AppCubit()..getTheme(isDark),
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) => MaterialApp(
           title: 'Flutter Demo',
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData(
             scaffoldBackgroundColor: Colors.black,
           ),
-          themeMode: ThemeCubit.get(context).appTheme! ? ThemeMode.dark : ThemeMode.light,
+          themeMode: AppCubit.get(context).appTheme!
+              ? ThemeMode.dark
+              : ThemeMode.light,
           home: HomePage(),
         ),
       ),
